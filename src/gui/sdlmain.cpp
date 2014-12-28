@@ -2816,7 +2816,20 @@ static void erasemapperfile() {
 }
 
 //extern void UI_Init(void);
+#ifdef EMSCRIPTEN
+extern "C" EMSCRIPTEN_KEEPALIVE int dosbox_main(const char* program) {
+	EM_ASM("SDL.defaults.copyOnLock = false; SDL.defaults.discardOnLock = true; SDL.defaults.opaqueFrontBuffer = false;");
+	int argc = 4;
+	const char *argv[4] = {
+		"dosbox",
+		"-conf",
+		"./dosbox.conf",
+		program
+	};
+
+#else
 int main(int argc, char* argv[]) {
+#endif
 	try {
 		CommandLine com_line(argc,argv);
 		Config myconf(&com_line);

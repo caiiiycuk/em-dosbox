@@ -1,4 +1,5 @@
 [
+"_dosbox_main",
 "_main",
 "__Z10SHELL_Initv",
 "__Z12DOS_ReadFiletPhPtb",
