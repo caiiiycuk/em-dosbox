@@ -52,6 +52,10 @@
 #include "cross.h"
 #include "control.h"
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif
+
 #define MAPPERFILE "mapper-" VERSION ".map"
 //#define DISABLE_JOYSTICK
 
@@ -1185,7 +1189,13 @@ static void GUI_StartUp(Section * sec) {
 //#endif
 
 /* Please leave the Splash screen stuff in working order in DOSBox. We spend a lot of time making DOSBox. */
+#if EMSCRIPTEN
+  // splash_surf breaks resize stuff of emscripten canvas
+	SDL_Surface* splash_surf = 0;
+#else
 	SDL_Surface* splash_surf = SDL_CreateRGBSurface(SDL_SWSURFACE, 640, 400, 32, rmask, gmask, bmask, 0);
+#endif
+
 	if (splash_surf) {
 		SDL_FillRect(splash_surf, NULL, SDL_MapRGB(splash_surf->format, 0, 0, 0));
 
@@ -1692,7 +1702,19 @@ static void erasemapperfile() {
 
 
 //extern void UI_Init(void);
+#ifdef EMSCRIPTEN
+extern "C" EMSCRIPTEN_KEEPALIVE int dosbox_main(const char* program) {
+	EM_ASM("SDL.defaults.copyOnLock = false; SDL.defaults.discardOnLock = true; SDL.defaults.opaqueFrontBuffer = false;");
+	int argc = 4;
+	const char *argv[4] = {
+		"dosbox",
+		"-conf",
+		"./dosbox.conf",
+		program
+	};
+#else
 int main(int argc, char* argv[]) {
+#endif
 	try {
 		CommandLine com_line(argc,argv);
 		Config myconf(&com_line);

@@ -18,7 +18,7 @@ dosbox_LDADD = cpu/libcpu.a debug/libdebug.a dos/libdos.a fpu/libfpu.a  hardware
 EXTRA_DIST = winres.rc dosbox.ico
 
 if EMSCRIPTEN_BUILD
-dosbox_LDFLAGS=-s TOTAL_MEMORY=67108864 --pre-js pre.js
+dosbox_LDFLAGS=-s TOTAL_MEMORY=67108864 --pre-js pre.js --memory-init-file 0
 endif
 
 # https://stackoverflow.com/questions/1779984/header-dependency-in-automake

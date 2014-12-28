@@ -346,7 +346,7 @@ void DOSBOX_RunMachine(void){
 		 * main loop runs. So, any time spent in the main loop adds to the
 		 * interval between main loop invocations.
 		 */
-		emscripten_set_main_loop(em_main_loop, 100, 1);
+		emscripten_set_main_loop(em_main_loop, 0, 1);
 	}
 	Uint32 ticksStart = GetTicks();
 #endif
