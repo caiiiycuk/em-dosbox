@@ -358,8 +358,9 @@ void DOSBOX_RunMachine(void){
 		 * Anything taking a long time will probably run indefinitely,
 		 * making DOSBox appear to hang.
 		 */
-		if (GetTicks() - ticksStart > 1000) {
+		if (GetTicks() - ticksStart > 10000) {
 			LOG_MSG("Emulation aborted due to nested emulation timeout.");
+			printf("Ticks passed %d\n", GetTicks() - ticksStart);
 			em_exit(1);
 			break;
 		}

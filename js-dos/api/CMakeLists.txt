@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 project(js-dos)
 
 set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-implicit-function-declaration")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG -Wno-implicit-function-declaration")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
 set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../..")
 
 if(EMSCRIPTEN)
