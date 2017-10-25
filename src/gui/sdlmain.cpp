@@ -1208,7 +1208,7 @@ dosurface:
 	return retFlags;
 }
 
-#ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN_OFF
 static bool use_capture_callback = false;
 static void doGFX_CaptureMouse(void);
 
@@ -1277,7 +1277,7 @@ static void CaptureMouse(bool pressed) {
 	GFX_CaptureMouse();
 }
 
-#ifdef EMSCRIPTEN
+#ifdef EMSCRIPTEN_OFF
 EM_BOOL em_pointerlock_callback(int eventType,
                           const EmscriptenPointerlockChangeEvent *keyEvent,
                           void *userData) {
@@ -2910,11 +2910,13 @@ int main(int argc, char* argv[]) {
 		canvasStyle.imageRendering = "crisp-edges";
 		canvasStyle.imageRendering = "pixelated";
 	);
+#ifdef EMSCRIPTEN_OFF	
 	if (emscripten_set_pointerlockchange_callback(NULL, NULL, true,
 	                                              em_pointerlock_callback)
 	    == EMSCRIPTEN_RESULT_SUCCESS) {
 		use_capture_callback = true;
 	}
+#endif	
 #endif
 
 	/* Display Welcometext in the console */
