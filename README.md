@@ -1,3 +1,5 @@
+Replaced with [js-dos 6.22](https://github.com/caiiiycuk/js-dos)
+
 # js-dos
 
 The aim of the project is to provide nice web-API for em-dosbox.
